@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: local
+
+# local 환경
+---
+spring:
+  profiles: local
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+  thymeleaf:
+    prefix: classpath:templates/
+    check-template-location: true
+    suffix: .html
+    mode: HTML5
+    cache: false
+    order: 0
+server:
+  port: 1227
+
