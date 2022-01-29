@@ -1,5 +1,6 @@
 package com.daria.clustering.kmeans.controller;
 
+import com.daria.clustering.dto.ClusteringRequest;
 import com.daria.clustering.dto.ClusteringResult;
 import com.daria.clustering.kmeans.service.KmeansClusteringService;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,12 @@ public class KmeansController {
     @GetMapping
     public List<ClusteringResult> getClusteringResult(){
         return kmeansClusteringService.getClusteringResult();
+    }
+
+    @PostMapping
+    public List<ClusteringResult> createClustering(
+            @RequestBody List<ClusteringRequest> clusteringRequestList
+    ){
+        return kmeansClusteringService.createClustering(clusteringRequestList);
     }
 }

@@ -1,5 +1,6 @@
 package com.daria.clustering.kmeans.service.impl;
 
+import com.daria.clustering.dto.ClusteringRequest;
 import com.daria.clustering.dto.ClusteringResult;
 import com.daria.clustering.dto.GeoPoint;
 import com.daria.clustering.kmeans.service.KmeansClusteringService;
@@ -46,9 +47,43 @@ public class KmeansClusteringServiceImpl implements KmeansClusteringService {
         return clusteringResultList;
     }
 
+    @Override
+    public List<ClusteringResult> createClustering(List<ClusteringRequest> clusteringRequestList) {
+        if(clusteringRequestList.size() < 2){
+            throw new IllegalArgumentException("현재 좌표는 2개 이상이어야합니다.");
+        }
+        List<GeoPoint> geoPointList =  new ArrayList<>();
+        Map<GeoPoint, String> geoPointLocationMap = new HashMap<>();
+        for(ClusteringRequest clusteringRequest : clusteringRequestList){
+            clusteringRequest.validCheck(); //유효값 검사
+            GeoPoint geoPoint = GeoPoint.of(clusteringRequest.getLat(), clusteringRequest.getLon());
+            geoPointList.add(geoPoint);
+            geoPointLocationMap.put(geoPoint, clusteringRequest.getLocationName());
+        }
+        double[][] geoPointArray = getGeoPointArray(geoPointList);
+
+        int groupSize = clusteringRequestList.size()/4;
+        KMeans clusters = PartitionClustering.run(20, () -> KMeans.fit(geoPointArray, groupSize < 2 ? 2 : groupSize));
+        //kmeans 최소개수를 2개 이하로 할 때 에러가 나기 때문.
+
+        Map<Integer, List<GeoPoint>> groupIdGeoPointMap = new HashMap<>();
+        for (int i = 0, yLength = clusters.y.length; i < yLength; i++) {
+            int groupId = clusters.y[i];
+            GeoPoint geoPoint = geoPointList.get(i);
+            if(geoPoint != null){
+                groupIdGeoPointMap.computeIfAbsent(groupId, k -> new ArrayList()).add(geoPoint);
+            }
+        }
+
+        List<ClusteringResult> clusteringResultList = new ArrayList<>();
+        for(Map.Entry<Integer, List<GeoPoint>> entry : groupIdGeoPointMap.entrySet()){
+            clusteringResultList.add(ClusteringResult.of(entry.getKey(), entry.getValue(), geoPointLocationMap));
+        }
+        return clusteringResultList;
+    }
 
 
-    public double[][] getGeoPointArray(List<GeoPoint> geoPointList) {
+    private double[][] getGeoPointArray(List<GeoPoint> geoPointList) {
         if (CollectionUtils.isEmpty(geoPointList)) {
             return new double[0][];
         }
