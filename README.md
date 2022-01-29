@@ -1,4 +1,7 @@
 # clustering-test
+
+> 개발 스택 : JAVA(SPRING BOOT), ELASTICSEARCH
+
 클러스터링 스터디 (KMEANS, XMEANS, OSRM etc...)
 
 
