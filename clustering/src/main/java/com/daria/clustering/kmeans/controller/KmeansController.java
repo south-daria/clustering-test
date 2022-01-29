@@ -13,7 +13,5 @@ public class KmeansController {
     private final KmeansClusteringService kmeansClusteringService;
 
     @GetMapping
-    public String test() {
-        return kmeansClusteringService.test();
     }
 }
