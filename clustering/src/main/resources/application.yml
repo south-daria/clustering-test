@@ -22,4 +22,18 @@ spring:
     order: 0
 server:
   port: 1227
+elasticsearch:
+  path:
+  hosts: localhost
+  port: 9200
+  indexPostfix: local
+
+httpclient:
+  defaultReadTimeout: 10000
+  defaultConnectionTimeout: 3000
+  pooling:
+    maxTotal: 50
+    defaultMaxPerRoute: 50
+data-es:
+  indexName: index
 
