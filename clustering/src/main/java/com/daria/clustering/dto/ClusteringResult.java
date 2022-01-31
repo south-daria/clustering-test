@@ -16,11 +16,13 @@ import java.util.Map;
 @AllArgsConstructor(staticName = "of")
 public class ClusteringResult {
     Integer groupId;
+    Integer clusteringSize;
     List<ClusteringLocation> clusteringLocationList;
 
     public static ClusteringResult of(Integer groupId, List<GeoPoint> geoPointList, Map<GeoPoint, String> geoPointStringMap){
         ClusteringResult instance = new ClusteringResult();
         instance.groupId = groupId;
+        instance.clusteringSize = geoPointList.size();
         List<ClusteringLocation> clusteringLocationList = new ArrayList<>();
         for(GeoPoint geoPoint : geoPointList) {
             clusteringLocationList.add(ClusteringLocation.of(geoPoint, geoPointStringMap.get(geoPoint)));
