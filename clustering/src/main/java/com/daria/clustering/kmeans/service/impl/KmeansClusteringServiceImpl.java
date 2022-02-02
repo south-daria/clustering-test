@@ -10,7 +10,10 @@ import org.springframework.util.CollectionUtils;
 import smile.clustering.KMeans;
 import smile.clustering.PartitionClustering;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class KmeansClusteringServiceImpl implements KmeansClusteringService {

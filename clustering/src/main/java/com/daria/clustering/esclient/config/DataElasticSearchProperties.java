@@ -3,27 +3,30 @@ package com.daria.clustering.esclient.config;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.util.StringUtils;
 
 import static java.util.Optional.ofNullable;
 
 @Getter
 @Setter
+@Configuration
 @ConfigurationProperties(prefix = "data-es")
+@Primary
 public class DataElasticSearchProperties extends ElasticSearchProperties {
 
     Indecies indecies;
 
-    public String getIndexName() {
+    public String getKmeansIndexName() {
         return ofNullable(this.indecies)
-                .map(Indecies::getIndexName)
-                .map(name -> StringUtils.isEmpty(indexPostfix) ? name : name + "_" + indexPostfix)
+                .map(Indecies::getKmeansIndexName)
                 .orElse("index");
     }
 
     @Getter
     @Setter
     public static class Indecies {
-        String indexName;
+        private String kmeansIndexName;
     }
 }
