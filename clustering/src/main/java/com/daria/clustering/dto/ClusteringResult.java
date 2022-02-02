@@ -17,17 +17,15 @@ import java.util.Map;
 public class ClusteringResult {
     Integer groupId;
     Integer clusteringSize;
-    List<ClusteringLocation> clusteringLocationList;
+    List<ClusteringLocation> clusteringLocationList = new ArrayList<>();
 
     public static ClusteringResult of(Integer groupId, List<GeoPoint> geoPointList, Map<GeoPoint, String> geoPointStringMap){
         ClusteringResult instance = new ClusteringResult();
         instance.groupId = groupId;
         instance.clusteringSize = geoPointList.size();
-        List<ClusteringLocation> clusteringLocationList = new ArrayList<>();
         for(GeoPoint geoPoint : geoPointList) {
-            clusteringLocationList.add(ClusteringLocation.of(geoPoint, geoPointStringMap.get(geoPoint)));
+            instance.clusteringLocationList.add(ClusteringLocation.of(geoPoint, geoPointStringMap.get(geoPoint)));
         }
-        instance.clusteringLocationList = clusteringLocationList;
         return instance;
     }
 
@@ -35,7 +33,7 @@ public class ClusteringResult {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor(staticName = "of")
-    private static class ClusteringLocation {
+    public static class ClusteringLocation {
         GeoPoint geoPoint;
         String locationName;
     }
