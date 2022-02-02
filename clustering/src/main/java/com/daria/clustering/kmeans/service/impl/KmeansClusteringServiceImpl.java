@@ -3,6 +3,7 @@ package com.daria.clustering.kmeans.service.impl;
 import com.daria.clustering.dto.ClusteringRequest;
 import com.daria.clustering.dto.ClusteringResult;
 import com.daria.clustering.dto.GeoPoint;
+import com.daria.clustering.exception.CustomIllegalArgumentException;
 import com.daria.clustering.kmeans.service.KmeansClusteringService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -50,7 +51,7 @@ public class KmeansClusteringServiceImpl implements KmeansClusteringService {
     @Override
     public List<ClusteringResult> createClustering(List<ClusteringRequest> clusteringRequestList) {
         if(clusteringRequestList.size() < 2){
-            throw new IllegalArgumentException("현재 좌표는 2개 이상이어야합니다.");
+            throw CustomIllegalArgumentException.message("현재 좌표는 2개 이상이어야합니다.");
         }
         List<GeoPoint> geoPointList =  new ArrayList<>();
         Map<GeoPoint, String> geoPointLocationMap = new HashMap<>();
