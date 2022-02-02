@@ -1,5 +1,6 @@
 package com.daria.clustering.dto;
 
+import com.daria.clustering.exception.CustomIllegalArgumentException;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,10 +20,10 @@ public class ClusteringRequest {
 
     public void validCheck(){
         if (StringUtils.isEmpty(locationName)){
-            throw new IllegalArgumentException("locationName는 필수값입니다.");
+            throw CustomIllegalArgumentException.message("locationName는 필수값입니다.");
         }
         if (lat < 0 || lat > 180 || lon < 0 || lon > 180){
-            throw new IllegalArgumentException("유효한 좌표값을 입력해주세요.");
+            throw CustomIllegalArgumentException.message("유효한 좌표값을 입력해주세요.");
         }
     }
 }
