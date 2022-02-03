@@ -31,6 +31,7 @@ httpclient:
     defaultMaxPerRoute: 50
 data-es:
   indecies:
-    kmeansIndexName: kmeans
+    kmeansIndexName: kmeans_clustering
   hosts: localhost
   port: 9200
+  indexPostfix: local

@@ -21,7 +21,8 @@ public class DataElasticSearchProperties extends ElasticSearchProperties {
     public String getKmeansIndexName() {
         return ofNullable(this.indecies)
                 .map(Indecies::getKmeansIndexName)
-                .orElse("index");
+                .map(name -> StringUtils.isEmpty(indexPostfix) ? name : name + "_" + indexPostfix)
+                .orElse("kmeans_clustering");
     }
 
     @Getter

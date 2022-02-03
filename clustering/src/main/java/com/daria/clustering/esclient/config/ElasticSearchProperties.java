@@ -18,6 +18,7 @@ public class ElasticSearchProperties {
     public static final int MAX_QUERY_SIZE = 50000;
     protected List<String> hosts;
     protected Integer port;
+    protected String indexPostfix;
 
     protected HttpClientProperties httpclient;
 
