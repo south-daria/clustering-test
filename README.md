@@ -73,4 +73,6 @@ RESPONSE
 
 ```
 
+mysql 좌표 구현 예정
+
 
